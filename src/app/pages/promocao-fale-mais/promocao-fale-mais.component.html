@@ -1,0 +1,67 @@
+<h2>FaleMais</h2>
+<h4>Preencha corretamente os dados</h4>
+
+<form (ngSubmit)="realizarCalculo()" [formGroup]="form">
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Origem</label>
+      <select class="form-control" [ngClass]="{'is-Invalid' : !form.controls.originId.valid}"
+        (change)="carregarDestinos(form.controls.originId.value)" formControlName="originId" id="categoriaId">
+        <option *ngFor='let ddd of keys(dddsId)' [ngValue]="dddsId[ddd]">
+          {{ ddd }}
+        </option>
+      </select>
+      <div class="invalid-feedback" *ngIf="!form.controls.originId.valid">
+        Origem é obrigatorio.
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" *ngIf="distinguishedSisabled">
+      <label>Destino</label>
+      <select class="form-control" formControlName="distinguishedId" id="destinoId" [ngClass]="{'is-invalid' : !form.controls.distinguishedId.valid}">
+        <option value="">Selecione</option>
+        <option *ngFor='let ddd of distinguished' [ngValue]="dddsId[ddd]">
+          {{ ddd }}
+        </option>
+      </select>
+      <div class="invalid-feedback" *ngIf="!form.controls.distinguishedId.valid">
+        Destino é obrigatório.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-now">
+    <div class="form-group col-md-6">
+      <label for="tempo">Tempo</label>
+      <input type="number" id="tempo" formControlName="time" placeholder="Tempo (requerido)" class="form-control" [ngClass]="{'is-invalid' : !form.controls.time.valid}">
+      Tempo é obrigatório.
+    </div>
+  </div>
+
+  <div class="form-group col-md-6">
+  <label>Plano FaleMais</label>
+  <select class="form-control" formControlName="planSpeakMoreId" id="planoFaleMaisId"
+    [ngClass]="{'is-invalid' : !form.controls.planSpeakMoreId.valid}">
+    <option *ngFor='let plano of keys(planoFaleMaisId)' [ngValue]="planoFaleMaisId[plano]">
+      {{ plano }}
+    </option>
+  </select>
+  <div class="invalid-feedback" *ngIf="!form.controls.planSpeakMoreId.valid">
+    Plano é obrigatório.
+  </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4 col-md-offser-2">
+        <span>
+          <button class="btn btn-primary" id="adicionarEvento" type="submit" [disabled]="!form.valid">Calcular</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<app-promocao-fale-mais-list [data]="data"></app-promocao-fale-mais-list>
